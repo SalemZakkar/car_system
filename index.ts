@@ -26,10 +26,9 @@ app.use(notFoundHandler);
 app.use(errorMiddleWare);
 app.listen(process.env.PORT, () => {
     console.log("Server is running on 3000");
-    let url = "https://carSystem.onrender.com/ping";
     setInterval(async () => {
         try {
-            await fetch("https://asoolbackend.onrender.com/ping");
+            await fetch("https://car-system-u7pz.onrender.com/ping");
         } catch (err) {
             console.error(err);
         }
