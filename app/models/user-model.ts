@@ -1,0 +1,47 @@
+import {model, Schema} from "mongoose";
+import {defaultDbOptions} from "../../core";
+import {IUser, UserRole} from "../user";
+
+let userSchema = new Schema<IUser>(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        password: {
+            type: String,
+        },
+        avatar: {type: String, ref: "File"},
+        phone: {
+            phone: {
+                type: String,
+            },
+            code: {
+                type: String,
+            },
+        },
+        isEmailVerified: {
+            type: Boolean,
+            default: false,
+        },
+        role: {
+            type: String,
+            enum: Object.values(UserRole),
+            required: true,
+            default: UserRole.user,
+        },
+    },
+    defaultDbOptions({
+        hideToJson: ["password"],
+        options: {
+            versionKey: false,
+        },
+    })
+);
+
+export const UserModel = model<IUser>("User", userSchema);

@@ -1,0 +1,37 @@
+import {appRouter} from "./app/router";
+
+require("dotenv").config({path: "./.env"});
+import express from "express";
+import qs from "qs";
+import {Exception, mongoConnect, notFoundHandler} from "./core";
+import {errorMiddleWare} from "./app/common";
+
+mongoConnect(process.env.DBURL!);
+let app = express();
+
+app.use(express.urlencoded({extended: true}));
+
+app.set("query parser", (str: string) => qs.parse(str));
+
+app.use(express.json());
+
+app.use("/api/", appRouter);
+
+app.use("/ping", (req: express.Request, res: express.Response,) => {
+    res.status(200).json({message: "Pong"});
+});
+
+app.use(notFoundHandler);
+
+app.use(errorMiddleWare);
+app.listen(process.env.PORT, () => {
+    console.log("Server is running on 3000");
+    let url = "https://carSystem.onrender.com/ping";
+    setInterval(async () => {
+        try {
+            await fetch("https://asoolbackend.onrender.com/ping");
+        } catch (err) {
+            console.error(err);
+        }
+    }, 30 * 1000)
+});

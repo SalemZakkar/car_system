@@ -1,0 +1,46 @@
+{
+  "name": "car-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsx index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@casl/ability": "^6.7.3",
+    "@casl/mongoose": "^8.0.3",
+    "@types/uuid": "^10.0.0",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.6.0",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.3",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.11",
+    "nodemon": "^3.1.10",
+    "qs": "^6.14.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.5",
+    "@types/joi": "^17.2.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/mongodb": "^4.0.6",
+    "@types/mongoose": "^5.11.96",
+    "@types/morgan": "^1.9.10",
+    "@types/multer": "^2.0.0",
+    "@types/nodemailer": "^7.0.4",
+    "@types/qs": "^6.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
