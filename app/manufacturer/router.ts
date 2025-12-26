@@ -1,8 +1,14 @@
 import {Router} from "express";
 import {CarBrandsController} from "./controller";
 import {protection} from "../auth";
-import {validateJsonBody} from "../../core";
-import {createBrandValidator, createVariantValidator, editBrandVariantValidator} from "./validator";
+import {validateJsonBody, validateJsonQuery} from "../../core";
+import {
+    createBrandValidator,
+    createVariantValidator,
+    editBrandVariantValidator,
+    getBrandValidator,
+    getVariantValidator
+} from "./validator";
 
 let manufacturerRouter = Router();
 
@@ -16,6 +22,7 @@ manufacturerRouter.post("/brand",
 
 manufacturerRouter.get("/brand",
     protection,
+    validateJsonQuery(getBrandValidator),
     carBrandController.getAllBrands,
 );
 
@@ -39,6 +46,7 @@ manufacturerRouter.post("/variant",
 
 manufacturerRouter.get("/variant",
     protection,
+    validateJsonQuery(getVariantValidator),
     carBrandController.getAllVariants,
 );
 

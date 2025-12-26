@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {CarBrandsService} from "./service";
-import {sendSuccessResponse} from "../../core";
+import {getQueries, sendSuccessResponse} from "../../core";
 import {CarBrandModel, CarVariantModel} from "../models";
 import {CarBrandNotFoundError, CarBrandVariantNotFoundError} from "./errors";
 
@@ -32,13 +32,14 @@ export class CarBrandsController {
         sendSuccessResponse({res: res});
     }
     getAllBrands = async (req: Request, res: Response) => {
-        let result = await this.carBrandService.getAllBrands();
+        let query = getQueries(req.query, false);
+        let result = await this.carBrandService.getAllBrands(query);
         sendSuccessResponse({res: res, data: result});
     }
 
     createVariant = async (req: Request, res: Response) => {
-        let {brand , name} = req.body;
-        let result = await this.carBrandService.createVariant({brand: brand , name: name,});
+        let {brand, name} = req.body;
+        let result = await this.carBrandService.createVariant({brand: brand, name: name,});
         sendSuccessResponse({res: res, data: result});
     }
 
@@ -61,7 +62,8 @@ export class CarBrandsController {
         sendSuccessResponse({res: res});
     }
     getAllVariants = async (req: Request, res: Response) => {
-        let result = await this.carBrandService.getAllVariants();
+        let query = getQueries(req.query, false, ['brand']);
+        let result = await this.carBrandService.getAllVariants(query);
         sendSuccessResponse({res: res, data: result});
     }
 }

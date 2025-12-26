@@ -11,7 +11,7 @@ export const authSignUpValidator = Joi.object<AuthSignUpInput>({
         phone: Joi.string(),
     })
         .and("code", "phone")
-        .optional(),
+        .required(),
 }).unknown(false);
 
 export const authSignInValidator = Joi.object<AuthSignInInput>({

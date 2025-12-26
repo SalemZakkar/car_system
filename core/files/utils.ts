@@ -1,4 +1,5 @@
 import multer from "multer";
+import { Request } from 'express';
 
 const upload = multer();
 
@@ -10,7 +11,6 @@ export function multerFiles(...names: string[]) {
 // export function multerFile(name: string) {
 //     return upload.single(name);
 // }
-import { Request } from 'express';
 
 export function getAllFiles(req: Request): Express.Multer.File[] {
     const files = req.files;
@@ -27,10 +27,9 @@ export function getAllFiles(req: Request): Express.Multer.File[] {
     return [];
 }
 
-export function getFilesByFieldName(req: Request, fieldName: string): Express.Multer.File[] {
+export function getFilesByFieldName(req: Request | any, fieldName: string): Express.Multer.File[] {
     const files = req.files;
     const file = req.file;
-
     if (file && file.fieldname === fieldName) return [file];
 
     if (Array.isArray(files)) {

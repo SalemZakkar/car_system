@@ -16,7 +16,7 @@ export function defaultDbOptions(
 ) {
     return {
         ...options,
-        toJSON: {
+        toJSON: options?.toJSON ?? {
             transform: (doc, ret) => {
                 let finalObject;
                 if (ret._id) {

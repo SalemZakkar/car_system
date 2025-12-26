@@ -1,5 +1,6 @@
 import {CarBrandModel, CarVariantModel} from "../models";
 import mongoose from "mongoose";
+import {MongooseQuery} from "../../core";
 
 export class CarBrandsService {
     createBrand = async function (input: { name: string }) {
@@ -14,8 +15,8 @@ export class CarBrandsService {
         await CarBrandModel.findByIdAndDelete(id);
     }
 
-    getAllBrands = async function () {
-        return CarBrandModel.find();
+    getAllBrands = async function (query: MongooseQuery) {
+        return CarBrandModel.find(query.conditions);
     }
 
     createVariant = async function (input: { brand: mongoose.ObjectId | string, name: string }) {
@@ -30,7 +31,7 @@ export class CarBrandsService {
         await CarVariantModel.findByIdAndDelete(id);
     }
 
-    getAllVariants = async function () {
-        return CarVariantModel.find().populate("brand");
+    getAllVariants = async function (query: MongooseQuery) {
+        return CarVariantModel.find(query.conditions).populate("brand");
     }
 }

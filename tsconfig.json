@@ -4,7 +4,7 @@
     "module": "nodenext",
     "target": "esnext",
     "types": ["node", "express", "multer"],
-    "typeRoots": ["./node_modules/@types", "./app/types"],
+    "typeRoots": ["./node_modules/@types", "./app/types" , "./core/types"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -19,5 +19,5 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "include": ["app"]
+  "include": ["app" , "core"]
 }

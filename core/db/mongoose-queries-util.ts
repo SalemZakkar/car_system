@@ -1,24 +1,32 @@
 export interface MongooseQuery {
-    skip?: number;
-    limit?: number;
-    total?: boolean;
-    data?: boolean;
-    conditions?: Record<string, any>;
+    skip?: number | undefined;
+    limit?: number | undefined;
+    total?: boolean | undefined;
+    data?: boolean | undefined;
+    sort?: Record<string, number> | undefined;
+    conditions?: Record<string, any> | undefined;
 }
 
-
-export function getQueries(query: any): MongooseQuery {
+export function getQueries(
+    query: any,
+    pagination: boolean = true,
+    rawFields: string[] = []
+): MongooseQuery {
     const conditions: Record<string, any> = {};
-    let skip = query.skip || 0;
-    let limit = query.limit || 100;
-    let total = query.total ? query.total == "true" : false;
-    let data = query.data ? query.data == "true" : true;
+    let skip, limit, total, data;
+    if (pagination) {
+        skip = query.skip || 0;
+        limit = query.limit || 100;
+        total = query.total ? query.total == "true" : false;
+        data = query.data ? query.data == "true" : true;
+    }
 
     let keys = Object.keys(query);
     keys = keys.filter((e) => !["skip", "limit", "data", "total"].includes(e));
     keys.forEach((e) => {
         if (typeof query[e] === "string") {
-            conditions[e] = query[e];
+
+            conditions[e] = rawFields.includes(e) ? query[e] : {$regex: query[e], $options: "i"};
         }
         if (Array.isArray(query[e])) {
             conditions[e] = {$in: query[e]};
@@ -35,8 +43,15 @@ export function getQueries(query: any): MongooseQuery {
             });
         }
     });
-
-    return {skip, limit, conditions, total, data};
+    // conditions.sort = {_id : -1};
+    return {
+        skip: skip,
+        limit: limit,
+        total: total,
+        data: data,
+        sort: {_id : -1},
+        conditions: conditions,
+    };
 }
 
 function isObject(value: any): value is Record<string, any> {

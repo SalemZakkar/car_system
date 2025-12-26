@@ -44,10 +44,6 @@ export class UserService {
         return UserModel.findAndCount(query);
     };
 
-    getUserByFirebaseId = async (id: string) => {
-        return UserModel.findOne({firebaseId: id});
-    };
-
     changeUserEmail = async (id: string, email: string, session?: ClientSession) => {
         return UserModel.findByIdAndUpdate(id, {email: email, isEmailVerified: false,}, {
             new: true,

@@ -6,6 +6,7 @@ import {getAppErrorsApi} from "../core";
 import {manufacturerRouter} from "./manufacturer";
 import {adBannerRouter} from "./ad-banner";
 import {postRouter} from "./posts";
+import {carRouter} from "./cars";
 
 let appRouter = Router();
 
@@ -14,6 +15,7 @@ appRouter.use("/user", userRouter);
 appRouter.use("/manufacturer", manufacturerRouter);
 appRouter.use("/banner", adBannerRouter);
 appRouter.use("/posts", postRouter);
+appRouter.use("/car", carRouter);
 appRouter.use("/file", fileRouter);
 appRouter.get("/errors", getAppErrorsApi);
 export {appRouter};
