@@ -3,7 +3,10 @@ import {FileNotFoundError} from "./errors";
 import mongoose from "mongoose";
 
 export class FileService {
-    saveFile = async (file: Express.Multer.File, session: mongoose.ClientSession | null = null) => {
+    saveFile = async (file: Express.Multer.File | null | undefined, session: mongoose.ClientSession | null = null) => {
+        if (!file) {
+            return;
+        }
         const fileData: AppFile = {
             fileName: file.originalname,
             mimetype: file.mimetype,
@@ -19,13 +22,13 @@ export class FileService {
         }
         return doc;
     }
-
     getFile = async (id: string | mongoose.ObjectId) => {
         return (await this.getFileDocument(id)).buffer;
     }
-
-
-    deleteFile = async (id: string | mongoose.ObjectId, session: mongoose.ClientSession | null = null) => {
+    deleteFile = async (id?: string | mongoose.ObjectId | null, session: mongoose.ClientSession | null = null) => {
+        if (!id) {
+            return;
+        }
         await FileModel.findOneAndDelete({_id: id}, {session: session});
     }
 }

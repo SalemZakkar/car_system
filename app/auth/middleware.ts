@@ -21,6 +21,6 @@ export const protection = async function (
     if (decoded.hasError) {
         throw new AuthUnAuthError();
     }
-    (req as any).userId = decoded.data.userId;
+    req.userId = decoded.data.userId;
     next();
 };

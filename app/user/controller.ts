@@ -107,48 +107,35 @@ export class UserController {
         if (!user) {
             throw new UserNotFoundError();
         }
-        let files = getFilesByFieldName(req, "avatar");
-        if (files.length == 0) {
-            let user = await this.service.update(req.params!.id!, {...fields, avatar: fields.avatar});
-            sendSuccessResponse({res: res, data: user});
-            return;
-        }
-        let file = files.at(0);
-        let avatar = user.avatar;
-        await executeWithTransaction(async (session) => {
-            let nFile = await this.fileService.saveFile(file!, session);
-            user = await this.service.update(req.params!.id!, {...fields, avatar: nFile._id.toString()}, session);
-            if (avatar) {
-                await (new FileService()).deleteFile(avatar, session);
-            }
+        let result = await executeWithTransaction(async (session) => {
+            await this.fileService.deleteFile(user?.avatar);
+            let file = await this.fileService.saveFile(
+                getFilesByFieldName(req, "avatar").at(0),
+                session,
+            );
+            return await this.service.update(req.params!.id!, {
+                ...fields,
+                avatar: fields.avatar === null ? null : file?.id
+            }, session);
         });
-        sendSuccessResponse({res: res, data: user});
+        sendSuccessResponse({res: res, data: result});
     };
     updateMine = async (req: Request, res: Response) => {
-        let userId = (req as any).userId;
         let {name, phone, avatar} = req.body;
-        let files = getFilesByFieldName(req, "avatar");
-        if (files.length == 0) {
-            let user = await this.service.update(userId, {name: name, phone: phone, avatar: avatar});
-            sendSuccessResponse({res: res, data: user});
-            return;
-        }
-        let file = files.at(0);
-        let user = await this.service.getUserById(userId);
-        let oldAvatar = user?.avatar;
-        await executeWithTransaction(async (session) => {
-            let nFile = await this.fileService.saveFile(file!, session);
-            let user = await this.service.update((req as any).userId, {
-                avatar: nFile._id.toString(),
-                name: name,
-                phone: phone,
-            }, session);
-            if (oldAvatar) {
-                await this.fileService.deleteFile(oldAvatar);
-            }
-            await session.commitTransaction();
-            sendSuccessResponse({res: res, data: user});
+        let result = await executeWithTransaction(async (session) => {
+            let old = await this.service.getUserById(req.userId!);
+            await this.fileService.deleteFile(old?.avatar);
+            let file = await this.fileService.saveFile(getFilesByFieldName(req, "avatar").at(0));
+            return await this.service.update(req.userId!,
+                {
+                    avatar: avatar === null ? null : file?.id,
+                    name: name,
+                    phone: phone,
+                }, session,
+            );
         });
+        sendSuccessResponse({res: res, data: result});
+
     };
     getByCriteria = async (req: Request, res: Response) => {
         let query = getQueries(req.query);
