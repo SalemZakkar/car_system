@@ -8,7 +8,7 @@ export const carCreateValidator = Joi.object<Car>({
     variant: Joi.string().required(),
     year: Joi.number().required(),
     price: Joi.number().required(),
-    image: fileValidator(10 * 1024 * 8, ["image/png", "image/jpeg"]).required(),
+    image: fileValidator(10 * 1024 * 1024, ["image/png", "image/jpeg"]).required(),
     description: Joi.string().required(),
     color: Joi.string().required(),
     location: Joi.alternatives(
@@ -26,7 +26,7 @@ export const carEditValidator = Joi.object<Car>({
     variant: Joi.string(),
     year: Joi.number(),
     price: Joi.number(),
-    image: fileValidator(10 * 1024 * 8, ["image/png", "image/jpeg"]).allow(null),
+    image: fileValidator(10 * 1024 * 1024, ["image/png", "image/jpeg"]).allow(null),
     description: Joi.string(),
     color: Joi.string(),
     location: Joi.alternatives(
