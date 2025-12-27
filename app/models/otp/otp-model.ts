@@ -1,7 +1,14 @@
 import mongoose, {model, Schema} from "mongoose";
-import {Otp, OtpInstanceFunctions, OtpReason} from "../otp/interface";
-import {otpAge, otpAttempts, otpMaxAttempts} from "../otp/constants";
-import {sendSmtpOtp} from "../otp/mailer";
+import {Otp, OtpInstanceFunctions, OtpReason} from "./interface";
+
+const otpAttempts = [5, 10, 30, 60, 1440];
+
+const otpAge = 1440;
+
+const otpMaxAttempts = 5;
+
+export { otpAttempts , otpAge , otpMaxAttempts};
+
 
 let schemaOtp = new Schema<Otp, {}, OtpInstanceFunctions, {}>({
     attempts: {

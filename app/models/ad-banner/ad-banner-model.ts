@@ -1,6 +1,6 @@
 import mongoose, {model, Schema} from "mongoose";
-import {AdBanner} from "../ad-banner/interface";
-import {defaultDbOptions} from "../../core";
+import {AdBanner} from "./interface";
+import {defaultDbOptions} from "../../../core";
 
 let adBannerSchema = new Schema<AdBanner>({
         image: {
@@ -11,4 +11,4 @@ let adBannerSchema = new Schema<AdBanner>({
     }, defaultDbOptions(),
 );
 
-export const AdBannerModel = model<AdBanner>("AdBanner", adBannerSchema);
+export const AdBannerModel = model("AdBanner", adBannerSchema);

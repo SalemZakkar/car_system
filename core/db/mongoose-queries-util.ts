@@ -3,8 +3,8 @@ export interface MongooseQuery {
     limit?: number | undefined;
     total?: boolean | undefined;
     data?: boolean | undefined;
-    sort?: Record<string, number> | undefined;
-    conditions?: Record<string, any> | undefined;
+    sort?: any;
+    conditions?: any;
 }
 
 export function getQueries(

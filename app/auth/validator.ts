@@ -1,5 +1,5 @@
 import Joi from "joi";
-import {AuthSignUpInput, AuthSignInInput} from "./interface";
+import {AuthSignUpInput, AuthSignInInput} from "../models/auth/interface";
 
 export const authSignUpValidator = Joi.object<AuthSignUpInput>({
     confirmPassword: Joi.string().required(),

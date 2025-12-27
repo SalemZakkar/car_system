@@ -25,7 +25,7 @@ export class FileService {
     getFile = async (id: string | mongoose.ObjectId) => {
         return (await this.getFileDocument(id)).buffer;
     }
-    deleteFile = async (id?: string | mongoose.ObjectId | null, session: mongoose.ClientSession | null = null) => {
+    deleteFile = async (id?: string | mongoose.ObjectId | mongoose.Types.ObjectId | null, session: mongoose.ClientSession | null = null) => {
         if (!id) {
             return;
         }

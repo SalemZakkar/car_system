@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {PhoneNumber} from "../common";
+import {PhoneNumber} from "../common/interface";
 
 export interface IUser {
     _id?: mongoose.ObjectId;

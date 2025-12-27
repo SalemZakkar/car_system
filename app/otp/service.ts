@@ -1,8 +1,7 @@
 import mongoose, {ClientSession} from "mongoose";
-import {OtpModel} from "../models/otp-model";
+import {OtpModel} from "../models";
 import {OtpExpiredError, OtpWrongOtpError} from "./errors";
-import {OtpReason, OtpResult} from "./interface";
-
+import {OtpReason, OtpResult} from "../models";
 export class OtpService {
     createOtp = async ({
                            user,

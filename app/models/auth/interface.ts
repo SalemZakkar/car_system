@@ -1,4 +1,4 @@
-import { PhoneNumber } from "../common";
+import {PhoneNumber} from "../common/interface";
 
 export interface AuthSignUpInput {
   name: string;

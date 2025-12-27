@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {UserRole, UserService} from "../user";
+import {UserService} from "../user";
 import {
     comparePassword,
     decodeToken,
@@ -11,7 +11,8 @@ import {
     AuthInvalidCredentialsError, AuthPasswordMismatchError,
     AuthRefreshTokenExpiredError, AuthRefreshTokenWrongError
 } from "./errors";
-import {AuthSignUpInput} from "./interface";
+import {AuthSignUpInput} from "../models/auth/interface";
+import {UserRole} from "../models";
 
 export class AuthController {
     private userService = new UserService();

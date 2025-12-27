@@ -5,10 +5,11 @@ import {
     getQueries,
     sendSuccessResponse,
 } from "../../core";
-import {UserUpdateFields} from "./interface";
-import {OtpReason, OtpService} from "../otp";
+import {UserUpdateFields} from "../models";
 import {UserAlreadyVerifiedError, UserNotFoundError} from "./errors";
 import {FileService} from "../files";
+import {OtpService} from "../otp";
+import {OtpReason} from "../models";
 
 export class UserController {
     private service = new UserService();

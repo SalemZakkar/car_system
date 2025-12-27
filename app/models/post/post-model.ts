@@ -1,6 +1,6 @@
 import mongoose, {model, Schema} from "mongoose";
-import {defaultDbOptions} from "../../core";
-import {Post} from "../posts/interface";
+import {defaultDbOptions} from "../../../core";
+import {Post} from "./interface";
 
 let postSchema = new Schema<Post>({
         image: {

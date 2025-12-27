@@ -46,7 +46,7 @@ export class PostController {
                     id: req.params.id!,
                     title: title,
                     description: description,
-                    file: file?.id,
+                    file: image === null ? null : file?.id,
                     session: session
                 });
             });

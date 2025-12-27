@@ -1,4 +1,4 @@
-import {Car, CarInput} from "./interface";
+import {Car, CarInput} from "../models";
 import {CarModel, CarVariantModel} from "../models";
 import mongoose from "mongoose";
 import {MongooseQuery} from "../../core";
@@ -11,7 +11,7 @@ export class CarService {
             throw new CarVariantNotFoundError();
         }
         input.brand = variant.brand;
-        return (await new CarModel(input)).save();
+        return (new CarModel(input)).save();
     }
 
     editCar = async (id: string | mongoose.ObjectId, input: CarInput, session: mongoose.ClientSession) => {
@@ -22,11 +22,11 @@ export class CarService {
             }
             input.brand = variant.brand;
         }
-        return (await CarModel.findByIdAndUpdate(id, input, {new: true, session: session,})).save();
+        return (await CarModel.findByIdAndUpdate(id, input, {new: true, session: session,}))!.save();
     }
 
     deleteCar = async (id: string, session: mongoose.ClientSession) => {
-        await CarModel.findOneAndDelete(id, {session: session});
+        await CarModel.findByIdAndDelete(id, {session: session});
     }
 
     getAllCars = async (query: MongooseQuery) => {

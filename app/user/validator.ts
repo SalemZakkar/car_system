@@ -1,6 +1,6 @@
 import Joi from "joi";
 import {paginationJoiObject, stringQueryValidator} from "../../core";
-import {UserRole} from "./interface";
+import {UserRole} from "../models";
 import {fileValidator} from "../files";
 
 export const userUpdateValidator = Joi.object({

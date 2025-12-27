@@ -1,12 +1,12 @@
 import {Router} from "express";
 import {authRouter} from "./auth";
-import {userRouter} from "./user";
 import {fileRouter} from "./files";
 import {getAppErrorsApi} from "../core";
 import {manufacturerRouter} from "./manufacturer";
 import {adBannerRouter} from "./ad-banner";
 import {postRouter} from "./posts";
 import {carRouter} from "./cars";
+import {userRouter} from "./user";
 
 let appRouter = Router();
 

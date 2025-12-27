@@ -1,6 +1,6 @@
 import mongoose, {model, Schema} from "mongoose";
-import {CarVariant} from "../manufacturer";
-import {defaultDbOptions} from "../../core";
+import {defaultDbOptions} from "../../../core";
+import {CarVariant} from "./interface";
 
 let carVariantSchema = new Schema<CarVariant>({
         name: {

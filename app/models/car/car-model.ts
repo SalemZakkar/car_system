@@ -1,6 +1,6 @@
 import mongoose, {model, Schema} from "mongoose";
-import {Car, CarVariantNotFoundError} from "../cars";
-import {defaultDbOptions} from "../../core";
+import {defaultDbOptions} from "../../../core";
+import {Car, CarServiceType} from "./interface";
 
 let carSchema = new Schema<Car>({
         variant: {
@@ -36,6 +36,10 @@ let carSchema = new Schema<Car>({
             required: true
         },
         location: {
+            address: {
+                type: String,
+                required: true,
+            },
             lat: {
                 type: Number,
                 required: true,
@@ -48,6 +52,11 @@ let carSchema = new Schema<Car>({
         user: {
             type: mongoose.Types.ObjectId,
             ref: "User",
+            required: true,
+        },
+        service: {
+            type: String,
+            enum: Object.values(CarServiceType),
             required: true,
         }
     }, defaultDbOptions(),
@@ -90,4 +99,4 @@ carSchema.post("save", async function (doc, next) {
     });
     next();
 });
-export const CarModel = model("Car", carSchema);
+export const CarModel = model<Car>("Car", carSchema);

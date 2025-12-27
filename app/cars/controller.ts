@@ -8,7 +8,7 @@ import {
     sendSuccessResponse,
     SystemNotFoundError
 } from "../../core";
-import {Car, CarInput} from "./interface";
+import {Car, CarInput} from "../models";
 import {CarModel} from "../models";
 
 export class CarController {
@@ -21,7 +21,7 @@ export class CarController {
         input.user = req.userId!;
         let result = await executeWithTransaction(async (session) => {
             let fileResult = await this.fileService.saveFile(file, session);
-            input.image = fileResult._id;
+            input.image = fileResult!._id;
             return await this.carService.createCar(input);
         });
         sendSuccessResponse({res: res, data: result});
@@ -38,7 +38,7 @@ export class CarController {
             if (file) {
                 await this.fileService.deleteFile(oldCar.image, session);
                 let fileResult = await this.fileService.saveFile(file, session);
-                input.image = fileResult._id;
+                input.image = fileResult!._id;
             }
             return await this.carService.editCar(req.params.id!, input, session,);
         });

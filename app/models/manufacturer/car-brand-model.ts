@@ -1,6 +1,6 @@
 import {model, Schema} from "mongoose";
-import {CarBrand} from "../manufacturer";
-import {defaultDbOptions} from "../../core";
+import {defaultDbOptions} from "../../../core";
+import {CarBrand} from "./interface";
 
 let brandModel = new Schema<CarBrand>({
         name: {

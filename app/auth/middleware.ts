@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {AuthUnAuthError} from "./errors";
 import {decodeToken} from "../../core";
+import {UserModel} from "../models";
 
 export const protection = async function (
     req: Request,
@@ -21,6 +22,11 @@ export const protection = async function (
     if (decoded.hasError) {
         throw new AuthUnAuthError();
     }
-    req.userId = decoded.data.userId;
+    let user = await UserModel.findById(decoded.data.userId);
+    if (!user) {
+        throw new AuthUnAuthError();
+    }
+    req.userId = user._id;
+    req.user = user;
     next();
 };
