@@ -18,6 +18,7 @@ export class CarController {
     createCar = async (req: Request, res: Response) => {
         let file = getFilesByFieldName(req, "image").at(0)!;
         let input: Car = req.body;
+        input.sellCount = Math.floor(Math.random() * 1000) + 1;
         input.user = req.userId!;
         let result = await executeWithTransaction(async (session) => {
             let fileResult = await this.fileService.saveFile(file, session);
@@ -58,7 +59,7 @@ export class CarController {
     }
 
     getAllCars = async (req: Request, res: Response) => {
-        let query = getQueries(req.query, false, ['user', 'brand', 'variant']);
+        let query = getQueries(req.query, false, ['user', 'brand', 'variant' , 'sortKmInTank' , 'sortSellCount']);
         let result = await this.carService.getAllCars(query);
         sendSuccessResponse({res: res, data: result});
     }

@@ -12,6 +12,8 @@ export interface Car {
     location: LatLng;
     user: mongoose.ObjectId | string;
     service: CarServiceType;
+    kmInTank: number;
+    sellCount: number;
 }
 
 export interface CarInput {

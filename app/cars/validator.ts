@@ -19,6 +19,7 @@ export const carCreateValidator = Joi.object<Car>({
         }).and("lat", "lng")
     ).required(),
     service: Joi.string().valid(...Object.values(CarServiceType)).required(),
+    kmInTank: Joi.number().required(),
 });
 
 export const carEditValidator = Joi.object<Car>({
@@ -48,4 +49,6 @@ export const carGetValidator = Joi.object({
     color: stringQueryValidator,
     user: Joi.string(),
     service: Joi.string().valid(...Object.values(CarServiceType)),
+    sortKmInTank: Joi.string().valid("DESC" , "ASC"),
+    sortSellCount: Joi.string().valid("DESC" , "ASC"),
 }).unknown(false);
